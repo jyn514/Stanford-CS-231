@@ -90,7 +90,10 @@ class KNearestNeighbor(object):
       # Compute the l2 distance between the ith test point and all training #
       # points, and store the result in dists[i, :].                        #
       #######################################################################
-      dists[i] = np.sum(np.square(np.abs(X[i] - self.X_train)), axis=1)
+      # https://cs231n.github.io/classification/#k---nearest-neighbor-classifier
+      # NOTE: this is significantly slower than two-loop version, by factor of ~3
+      # see https://stackoverflow.com/a/49633639
+      dists[i] = (np.abs(X[i] - self.X_train) ** 2).sum(axis=1)
       #######################################################################
       #                         END OF YOUR CODE                            #
       #######################################################################
