@@ -106,9 +106,6 @@ class KNearestNeighbor(object):
 
     Input / Output: Same as compute_distances_two_loops
     """
-    num_test = X.shape[0]
-    num_train = self.X_train.shape[0]
-    dists = np.zeros((num_test, num_train)) 
     #########################################################################
     # TODO:                                                                 #
     # Compute the l2 distance between all test points and all training      #
@@ -121,11 +118,15 @@ class KNearestNeighbor(object):
     # HINT: Try to formulate the l2 distance using matrix multiplication    #
     #       and two broadcast sums.                                         #
     #########################################################################
-    pass
+    # all credit to Dylan Madisetti: https://www.dylanmadisetti.com/
+    # > There's floating point error, so a direct comparison doesn't work. epsilon = 1e-16 should catch everything though
+    # > Derivation is pretty simple. It's just an expansion of sum (a - b)^2 = sum(a^2 - 2*a*b - b^2) = sum(a^2) - 2* sum(a*b) - sum(b^2)
+    # > a*b can be calculated from matrix multiplication, the a^2 and b^2 components can be calculated directly
+    # > just benchmarked it for a speed up of ~x244
+    return -2 * np.matmul(X, self.X_train.T) + (X**2).sum(axis=1).reshape([-1, 1]) + (self.X_train**2).sum(axis=1).reshape([1, -1])
     #########################################################################
     #                         END OF YOUR CODE                              #
     #########################################################################
-    return dists
 
   def predict_labels(self, dists, k=1):
     """
