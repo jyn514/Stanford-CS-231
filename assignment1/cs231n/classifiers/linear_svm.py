@@ -21,6 +21,7 @@ def svm_loss_naive(W, X, y, reg):
   """
   dW = np.zeros(W.shape) # initialize the gradient as zero
 
+  # https://cs231n.github.io/linear-classify/#loss-function
   # compute the loss and the gradient
   num_classes = W.shape[1]
   num_train = X.shape[0]
@@ -40,11 +41,11 @@ def svm_loss_naive(W, X, y, reg):
   loss /= num_train
 
   # Add regularization to the loss.
-  loss += reg * np.sum(W * W)
+  loss += reg * np.sum(W ** 2)
 
   #############################################################################
   # TODO:                                                                     #
-  # Compute the gradient of the loss function and store it dW.                #
+  # Compute the gradient of the loss function and store it in dW.             #
   # Rather that first computing the loss and then computing the derivative,   #
   # it may be simpler to compute the derivative at the same time that the     #
   # loss is being computed. As a result you may need to modify some of the    #
