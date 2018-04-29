@@ -100,3 +100,9 @@ def eval_numerical_gradient(f, x):
     it.iternext() # step to next dimension
 
   return grad
+
+
+def gradient_descent(f, x, W):
+  step_size = .0001
+  while True:
+    W -= step_size * eval_gradient(f, x)
