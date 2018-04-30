@@ -21,6 +21,7 @@ def svm_loss_naive(W, X, y, reg):
   """
   dW = np.zeros(W.shape) # initialize the gradient as zero
 
+  print(X.shape, dW.shape)
   # https://cs231n.github.io/linear-classify/#loss-function
   # compute the loss and the gradient
   num_classes = W.shape[1]
