@@ -9,6 +9,7 @@
 
 ### [optimization](https://cs231n.github.io/optimization-1/)
 - [calculus with max() functions](https://math.stackexchange.com/a/368445)
+- [calculus with sums](https://math.stackexchange.com/a/1383551)
 - [convex optimization](https://stanford.edu/~boyd/cvxbook/)
 - [visualization](http://vision.stanford.edu/teaching/cs231n-demos/linear-classify/)
 
