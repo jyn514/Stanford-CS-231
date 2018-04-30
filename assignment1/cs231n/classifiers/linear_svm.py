@@ -56,15 +56,27 @@ def svm_loss_vectorized(W, X, y, reg):
 
   Inputs and outputs are the same as svm_loss_naive.
   """
-  loss = 0.0
+  loss = np.empty(W.shape)
   dW = np.zeros(W.shape) # initialize the gradient as zero
-
   #############################################################################
   # TODO:                                                                     #
   # Implement a vectorized version of the structured SVM loss, storing the    #
   # result in loss.                                                           #
   #############################################################################
-  pass
+  # scores.shape, scores[y].shape = (500, 10), (500, 3073)
+  scores = np.matmul(X, W)  # X cross W; [row.dot(W) for row in X]
+  # TODO: make single loop
+  for i in range(len(X)):
+    current = y[i]
+    margins = np.maximum(0, scores[i] - scores[i, current] + 1) # NOTE: delta = 1
+    margins[current] = 0
+    loss[i] = margins
+
+  loss = loss.sum()
+  # TypeError: 'numpy.float64' object does not support item assignment
+  #loss[loss == 1] = 0  # don't incur delta penalty for correct answer
+  loss /= X.shape[0]
+  loss += reg * np.sum(W ** 2)
   #############################################################################
   #                             END OF YOUR CODE                              #
   #############################################################################
